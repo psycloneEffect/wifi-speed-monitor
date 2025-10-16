@@ -1,0 +1,38 @@
+# CODEOWNERS
+# このファイルは、特定のファイルやディレクトリのコードオーナーを定義します
+# PRが作成されると、該当するオーナーが自動的にレビュアーとして割り当てられます
+
+# デフォルトオーナー（すべてのファイル）
+* @onoma
+
+# コア層（最も重要な部分）
+/project/core/ @onoma
+
+# サービス層
+/project/services/ @onoma
+
+# アダプター層
+/project/adapters/ @onoma
+
+# テストコード
+/tests/ @onoma
+
+# ドキュメント
+/docs/ @onoma
+*.md @onoma
+
+# GitHub設定
+/.github/ @onoma
+
+# CI/CD設定
+/.github/workflows/ @onoma
+
+# 依存関係
+requirements.txt @onoma
+pyproject.toml @onoma
+
+# 注意: @onomaを実際のGitHubユーザー名に置き換えてください
+# チーム開発の場合は、以下のように複数のオーナーを指定できます：
+# /project/core/ @onoma @teammate1
+# または、GitHubのチームを指定：
+# /project/core/ @organization/team-name

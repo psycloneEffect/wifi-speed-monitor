@@ -1,0 +1,50 @@
+name: Lint & Format
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8 pylint mypy
+    
+    - name: Check code formatting with Black
+      run: |
+        black --check --diff project/ tests/
+    
+    - name: Lint with flake8
+      run: |
+        # E501: 行の長さを120文字まで許容
+        # W503: 演算子の前の改行を許可
+        flake8 project/ tests/ --count --max-line-length=120 --ignore=E501,W503 --show-source --statistics
+    
+    - name: Lint with pylint
+      run: |
+        pylint project/ --max-line-length=120 --disable=C0114,C0115,C0116 || true
+    
+    - name: Type check with mypy
+      run: |
+        mypy project/ --ignore-missing-imports || true

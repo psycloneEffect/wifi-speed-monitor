@@ -1,15 +1,13 @@
-# VSCode general settings
-.vscode/
-AGENTS.md
-README.md
-README
-
+# ============================================
 # Python
+# ============================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+
+# Distribution / packaging
 build/
 develop-eggs/
 dist/
@@ -22,31 +20,240 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
+# PyInstaller
+*.manifest
+*.spec
+
+# ============================================
+# Virtual Environments
+# ============================================
 venv/
 env/
 ENV/
 .venv
+.env
 
-# IDE
-.vscode/
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# ============================================
+# IDE / Editors
+# ============================================
+# VS Code (user-specific settings should be ignored)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.log
+
+# Keep shared settings
+!.vscode/extensions.json
+!.vscode/tasks.json
+
+# PyCharm
 .idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
 *.swp
 *.swo
 *~
+.vim/
 
-# Testing
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================
+# Testing & Coverage
+# ============================================
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+.tox/
+.nox/
 
-# OS
+# pytest
+.cache/
+nosetests.xml
+test-results/
+
+# ============================================
+# Type Checking & Linting
+# ============================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+.ruff_cache/
+.pylint.d/
+
+# ============================================
+# Documentation
+# ============================================
+site/
+docs/_build/
+docs/.buildinfo
+.doctrees
+
+# MkDocs
+site/
+
+# Sphinx
+_build/
+_static/
+_templates/
+
+# ============================================
+# Logs & Databases
+# ============================================
+*.log
+*.sql
+*.sqlite
+*.db
+
+# Application logs
+logs/
+*.log.*
+
+# ============================================
+# OS Specific
+# ============================================
+# macOS
 .DS_Store
-Thumbs.db
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
-# GitHub
-.github/
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+
+# ============================================
+# Environment & Secrets
+# ============================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+secrets.yml
+secrets.json
+
+# ============================================
+# Build & Deployment
+# ============================================
+*.pyc
+*.pyo
+*.pyd
+*.dll
+*.exe
+*.out
+*.app
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================
+# Project Specific
+# ============================================
+# Backup files
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# Application cache
+cache/
+*.cache
+
+# User data
+data/
+*.db
+*.sqlite3
+
+# Configuration (if contains secrets)
+config.local.yml
+settings.local.py
+
+# ============================================
+# Jupyter Notebook
+# ============================================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb
+
+# IPython
+profile_default/
+ipython_config.py
+
+# ============================================
+# Profiling
+# ============================================
+*.prof
+*.lprof
+*.pstats
+
+# ============================================
+# Local Development
+# ============================================
+# Development scripts
+scratch/
+tmp/
+temp/
+
+# Node modules (if using any JS tools)
+node_modules/
+package-lock.json
+
+# ============================================
+# CI/CD
+# ============================================
+.gitlab-ci-local/
+.circleci/
+.travis.yml.bak

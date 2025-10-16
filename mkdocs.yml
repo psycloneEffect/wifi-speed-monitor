@@ -1,0 +1,132 @@
+# Speed Finder - MkDocs Configuration
+
+site_name: Speed Finder
+site_description: WiFiネットワークの速度と安定性をリアルタイムでモニタリング
+site_author: Your Name
+site_url: https://onoma.github.io/speed-finder
+
+repo_name: onoma/speed-finder
+repo_url: https://github.com/onoma/speed-finder
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; 2025 Your Name
+
+theme:
+  name: material
+  language: ja
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: ダークモードに切り替え
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: ライトモードに切り替え
+  
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/wifi
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/onoma
+  version:
+    provider: mike
+
+plugins:
+  - search:
+      lang:
+        - ja
+        - en
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            inherited_members: true
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+nav:
+  - ホーム: index.md
+  - ユーザーガイド:
+      - インストール: guide/installation.md
+      - 使い方: guide/usage.md
+      - 設定: guide/configuration.md
+  - 開発者ガイド:
+      - アーキテクチャ: dev/architecture.md
+      - セットアップ: dev/setup.md
+      - コントリビューション: dev/contributing.md
+  - API リファレンス:
+      - Core: api/core.md
+      - Services: api/services.md
+      - Adapters: api/adapters.md
+  - Changelog: changelog.md
