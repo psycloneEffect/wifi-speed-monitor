@@ -118,6 +118,7 @@ Infrastructure → Application → Core
 ```
 
 **依存の方向を守ること：**
+
 - Core は外部依存を持たない
 - Services は Core のみに依存
 - Adapters はすべてに依存可能
@@ -139,6 +140,7 @@ mypy project/
 ## 🔄 プルリクエストの流れ
 
 1. **ブランチを作成**
+
    ```bash
    git checkout -b feature/amazing-feature
    # または
@@ -146,17 +148,20 @@ mypy project/
    ```
 
 2. **変更をコミット**
+
    ```bash
    git add .
    git commit -m "feat: add amazing feature"
    ```
 
 3. **テストを実行**
+
    ```bash
    pytest --cov=project
    ```
 
 4. **プッシュ**
+
    ```bash
    git push origin feature/amazing-feature
    ```
