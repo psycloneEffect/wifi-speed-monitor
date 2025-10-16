@@ -65,10 +65,13 @@
 - [ ] speedtest-cli 統合
 - [ ] ping3 でのレイテンシ測定
 - [ ] Windows netsh による WiFi情報取得
+- [ ] `core/enums.py` の追加（ConnectionQuality, NetworkType等）
+- [ ] `core/constants.py` の追加（閾値定数、デフォルト設定）
 
 **成果物:**
 
 - `adapters/network_adapter.py` の完全実装
+- `core/enums.py` と `core/constants.py` の作成
 - ネットワーク測定のユニットテスト
 - 測定精度の検証
 
@@ -131,6 +134,218 @@
 - v1.0.0 リリース
 - ユーザーマニュアル
 - インストールガイド
+
+## 🏗️ プロジェクト構造とアーキテクチャ設計
+
+### ディレクトリ構成の方針
+
+#### オニオンアーキテクチャの層構造
+
+```
+project/
+├── core/              # ドメインコア層（最内側・依存なし）
+│   ├── models.py      # データモデル
+│   ├── interfaces.py  # 抽象インターフェース
+│   ├── enums.py       # 列挙型定義（Week 3-4で追加）
+│   ├── constants.py   # 定数定義（Week 3-4で追加）
+│   └── exceptions.py  # カスタム例外（必要に応じて）
+│
+├── services/          # アプリケーション層（coreに依存）
+│   ├── monitor.py
+│   ├── analyzer.py
+│   └── (utils.py)     # サービス層で使うユーティリティ（最小限）
+│
+└── adapters/          # インフラ層（外側・すべてに依存可）
+    ├── network_adapter.py
+    ├── ui_adapter.py
+    └── (helpers.py)   # アダプター層のヘルパー（最小限）
+```
+
+### Shared層に関する設計判断
+
+#### ❌ 避けるべきパターン
+
+**ルート直下のshared層は作成しない**
+
+```
+# アンチパターン
+project/
+├── shared/            # ❌ オニオン構造を崩す
+│   ├── constants/
+│   ├── enums/
+│   ├── interfaces/
+│   └── utils/
+```
+
+**理由:**
+
+- オニオンの層構造が不明確になる
+- 依存関係が複雑化（どこからでもアクセス可能になる）
+- 「shared」は責務が曖昧で肥大化しやすい
+
+#### ✅ 推奨パターン
+
+**適切な層に配置する**
+
+1. **定数・列挙型 → `core/` に配置**
+   - ドメインレベルの定数
+   - ビジネスルールに関する列挙型
+   - すべての層から参照可能（内側なので）
+
+2. **インターフェース → `core/interfaces.py`**
+   - 既存ファイルで管理
+   - 新規追加時も同ファイルに集約
+
+3. **ユーティリティ → 使用する層に配置**
+   - ネットワーク系 → `adapters/`
+   - ビジネスロジック系 → `services/`
+   - ドメイン系 → `core/`
+
+### 段階的な追加計画
+
+#### Phase 1（Week 1-2）: 最小構成 ✅ 完了
+
+```
+core/
+├── models.py          # データモデル
+└── interfaces.py      # インターフェース
+```
+
+#### Phase 2（Week 3-4）: 定数・列挙型追加
+
+```python
+# core/enums.py を追加
+from enum import Enum
+
+class ConnectionQuality(Enum):
+    EXCELLENT = "Excellent"
+    GOOD = "Good"
+    FAIR = "Fair"
+    POOR = "Poor"
+    UNKNOWN = "Unknown"
+
+class NetworkType(Enum):
+    WIFI = "wifi"
+    ETHERNET = "ethernet"
+    MOBILE = "mobile"
+
+# core/constants.py を追加
+# 品質判定の閾値
+LATENCY_EXCELLENT = 50    # ms
+LATENCY_GOOD = 100
+LATENCY_FAIR = 200
+
+JITTER_EXCELLENT = 10
+JITTER_GOOD = 30
+JITTER_FAIR = 50
+
+# デフォルト設定
+DEFAULT_MONITOR_INTERVAL = 10  # 秒
+DEFAULT_HISTORY_SIZE = 60
+DEFAULT_SPEEDTEST_INTERVAL = 1800  # 30分
+```
+
+**追加タイミング:**
+
+- [ ] Week 3-4: `core/enums.py` 作成
+- [ ] Week 3-4: `core/constants.py` 作成
+- [ ] Week 5-6: `core/exceptions.py` 作成（必要に応じて）
+
+#### Phase 3（Week 5-6以降）: カスタム例外
+
+```python
+# core/exceptions.py
+class SpeedFinderError(Exception):
+    """ベース例外"""
+    pass
+
+class NetworkError(SpeedFinderError):
+    """ネットワーク関連エラー"""
+    pass
+
+class MeasurementError(SpeedFinderError):
+    """測定エラー"""
+    pass
+```
+
+### コーディング規約（実装時の注意事項）
+
+#### 循環インポート回避
+
+- **TYPE_CHECKINGを使用しない**
+- **1ファイル1クラスの原則**を遵守
+- ファイル名 = クラス名（小文字）
+
+**例:**
+
+```
+core/
+├── network_stats.py      # NetworkStatsクラス
+├── stability_metrics.py  # StabilityMetricsクラス
+└── connection_quality.py # ConnectionQualityクラス
+```
+
+#### コードの分割基準
+
+- **PEP8準拠**
+- **80行（コメント除く）を超えたら分割**
+- 内部メソッドへのリファクタリング
+
+**例:**
+
+```python
+class NetworkMonitorService:
+    def collect_and_analyze(self):
+        # 80行超える場合
+        stats = self._collect_stats()      # 分割
+        metrics = self._analyze_metrics()  # 分割
+        return stats, metrics
+
+    def _collect_stats(self):
+        # 実装
+        pass
+
+    def _analyze_metrics(self):
+        # 実装
+        pass
+```
+
+#### 型ヒント
+
+- **Optionalではなく、Union を優先**
+
+```python
+# ❌ 避ける
+from typing import Optional
+def get_ssid(self) -> Optional[str]:
+    pass
+
+# ✅ 推奨
+from typing import Union
+def get_ssid(self) -> Union[str, None]:
+    pass
+```
+
+#### ハードコーディング禁止
+
+- すべての定数は `core/constants.py` に集約
+- マジックナンバーは使わない
+
+```python
+# ❌ 避ける
+if latency < 50:
+    quality = "Excellent"
+
+# ✅ 推奨
+from project.core.constants import LATENCY_EXCELLENT
+if latency < LATENCY_EXCELLENT:
+    quality = ConnectionQuality.EXCELLENT
+```
+
+#### 未使用インポートの削除
+
+- pyファイル更新後、必ず確認
+- CI/CDでruffとflake8が自動チェック
 
 ## 🏗️ 実装の優先順位
 
@@ -493,6 +708,15 @@ pyinstaller --onefile --windowed --icon=icon.ico main.py
 - [Onion Architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/)
 
 ---
+
+### Copilotに理解してほしいこと
+
+- TYPECHECKを使用しなくても循環インポートにならない構成で実装してください。
+- 上述の循環インポートを回避するため、1ファイル1クラス、pyファイル名＝クラス名の実装を遵守してください。
+- PEP8準拠のもと、80行 (コメント除く) を超えるコードは分割し、別メソッド(内部メソッド)にリファクタリングしてください。
+- pyファイル更新後、未使用インポートがあったら削除してください。
+- Optionalではなく、可能な限りUnionを優先的に使用してください。
+- ハードコーディングは避け、
 
 **最終更新**: 2025年10月16日
 
