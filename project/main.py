@@ -3,10 +3,10 @@ Speed Finder - WiFi速度モニタリングアプリ
 エントリーポイント
 """
 import time
-from adapters.network_adapter import PsutilNetworkProvider
-from adapters.ui_adapter import TrayUIAdapter
-from services.monitor import NetworkMonitorService
-from services.analyzer import StabilityAnalyzerService
+from project.adapters.network_adapter import PsutilNetworkProvider
+from project.adapters.ui_adapter import TrayUIAdapter
+from project.services.monitor import NetworkMonitorService
+from project.services.analyzer import StabilityAnalyzerService
 
 
 def main():

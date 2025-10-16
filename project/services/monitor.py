@@ -3,8 +3,8 @@
 """
 from typing import List
 from datetime import datetime, timedelta
-from core.interfaces import INetworkProvider, IStabilityAnalyzer
-from core.models import NetworkStats, StabilityMetrics
+from project.core.interfaces import INetworkProvider, IStabilityAnalyzer
+from project.core.models import NetworkStats, StabilityMetrics
 
 
 class NetworkMonitorService:

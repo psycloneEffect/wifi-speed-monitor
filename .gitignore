@@ -1,3 +1,9 @@
+# VSCode general settings
+.vscode/
+AGENTS.md
+README.md
+README
+
 # Python
 __pycache__/
 *.py[cod]
@@ -41,3 +47,6 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# GitHub
+.github/

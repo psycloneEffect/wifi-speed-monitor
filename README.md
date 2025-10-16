@@ -7,6 +7,7 @@ WiFiネットワークの速度と安定性をリアルタイムでモニタリ�
 Speed Finderは、現在接続中のWiFiネットワークの性能を継続的に監視し、システムトレイからマウスオーバーで詳細情報を表示するPythonアプリケーションです。
 
 ### 主な機能
+
 - ⬇️⬆️ ダウンロード/アップロード速度の測定
 - ⏱️ レイテンシ（ping）の監視
 - 📊 接続安定性の分析
@@ -17,7 +18,7 @@ Speed Finderは、現在接続中のWiFiネットワークの性能を継続的�
 
 このプロジェクトは**オニオンアーキテクチャ**を採用しています。依存関係は外側から内側への一方向のみです。
 
-```
+```py
 ┌─────────────────────────────────────────────┐
 │         Infrastructure Layer                │
 │  (adapters/ - PyQt6, psutil, speedtest)    │
@@ -39,14 +40,15 @@ Speed Finderは、現在接続中のWiFiネットワークの性能を継続的�
 ```
 
 ### 依存の方向
-```
+
+```py
 Infrastructure → Application → Core
    (外側)                      (内側)
 ```
 
 ## 📁 プロジェクト構造
 
-```
+```py
 speed-finder/
 │
 ├── core/                       # ドメインコア層（依存なし）
@@ -108,6 +110,7 @@ pytest --cov=. --cov-report=html
 ## 📦 各レイヤーの責務
 
 ### Core Layer（中心層）
+
 - **責務**: ドメインモデルとビジネスルールの定義
 - **依存**: なし（純粋Python）
 - **含まれるもの**:
@@ -118,6 +121,7 @@ pytest --cov=. --cov-report=html
   - `IUIPresenter`: UI表示インターフェース
 
 ### Application Layer（アプリケーション層）
+
 - **責務**: ビジネスロジックのオーケストレーション
 - **依存**: `core`のみ
 - **含まれるもの**:
@@ -125,6 +129,7 @@ pytest --cov=. --cov-report=html
   - `StabilityAnalyzerService`: 統計分析と品質判定
 
 ### Infrastructure Layer（インフラ層）
+
 - **責務**: 外部ライブラリとの統合
 - **依存**: `core`, `services`
 - **含まれるもの**:

@@ -2,8 +2,8 @@
 安定性分析サービス
 """
 from statistics import stdev, mean
-from core.interfaces import IStabilityAnalyzer
-from core.models import NetworkStats, StabilityMetrics
+from project.core.interfaces import IStabilityAnalyzer
+from project.core.models import NetworkStats, StabilityMetrics
 
 
 class StabilityAnalyzerService(IStabilityAnalyzer):

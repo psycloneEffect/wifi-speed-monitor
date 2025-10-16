@@ -4,8 +4,8 @@ UIアダプター実装（PyQt6）
 # TODO: PyQt6実装
 # from PyQt6.QtWidgets import QSystemTrayIcon, QApplication
 # from PyQt6.QtCore import QTimer
-from core.interfaces import IUIPresenter
-from core.models import NetworkStats, StabilityMetrics
+from project.core.interfaces import IUIPresenter
+from project.core.models import NetworkStats, StabilityMetrics
 
 
 class TrayUIAdapter(IUIPresenter):

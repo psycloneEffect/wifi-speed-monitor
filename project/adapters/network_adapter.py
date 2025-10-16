@@ -4,8 +4,8 @@
 from datetime import datetime
 from typing import Optional
 import psutil
-from core.interfaces import INetworkProvider
-from core.models import NetworkStats
+from project.core.interfaces import INetworkProvider
+from project.core.models import NetworkStats
 
 
 class PsutilNetworkProvider(INetworkProvider):
