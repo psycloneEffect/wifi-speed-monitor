@@ -167,7 +167,7 @@ exclude_lines = [
 ]
 
 [tool.coverage.html]
-directory = "htmlcov"
+directory = "tests/coverage"
 
 # ============================================
 # mypy (Type Checker)
