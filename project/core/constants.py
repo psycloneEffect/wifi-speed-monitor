@@ -87,3 +87,29 @@ WEIGHT_LATENCY = 0.3  # latency contribution to quality score
 WEIGHT_JITTER = 0.2  # jitter contribution to quality score
 WEIGHT_PACKET_LOSS = 0.3  # packet loss contribution to quality score
 WEIGHT_SPEED = 0.2  # speed contribution to quality score
+
+# ==========================================
+# Network Measurement Settings
+# ==========================================
+DEFAULT_PING_HOST = "8.8.8.8"  # Google DNS
+FALLBACK_PING_HOSTS = [
+    "8.8.8.8",  # Google DNS
+    "1.1.1.1",  # Cloudflare DNS
+    "208.67.222.222",  # OpenDNS
+]
+MAX_SPEEDTEST_RETRY = 3  # maximum retry attempts for speed test
+
+# ==========================================
+# Application Info
+# ==========================================
+APP_NAME = "Speed Finder"
+APP_VERSION = "0.1.0"
+MIN_PYTHON_VERSION = (3, 11)
+
+# ==========================================
+# Logging Settings
+# ==========================================
+DEFAULT_LOG_LEVEL = "INFO"
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+MAX_LOG_FILE_SIZE_MB = 10
+MAX_LOG_FILE_COUNT = 5

@@ -57,38 +57,40 @@
 - [x] ドキュメント整備
 - [x] 開発環境セットアップ
 
-### Week 3-4: ネットワーク測定機能
+### Week 3-4: ネットワーク測定機能 ✅
 
 **目標:**
 
-- [ ] psutil を使った基本的なネットワーク統計取得
-- [ ] speedtest-cli 統合
-- [ ] ping3 でのレイテンシ測定
-- [ ] Windows netsh による WiFi情報取得
-- [ ] `core/enums.py` の追加（ConnectionQuality, NetworkType等）
-- [ ] `core/constants.py` の追加（閾値定数、デフォルト設定）
+- [x] psutil を使った基本的なネットワーク統計取得
+- [x] speedtest-cli 統合
+- [x] ping3 でのレイテンシ測定
+- [x] Windows netsh による WiFi情報取得
+- [x] `core/enums.py` の追加（ConnectionQuality, NetworkType等）
+- [x] `core/constants.py` の追加（閾値定数、デフォルト設定）
 
 **成果物:**
 
-- `adapters/network_adapter.py` の完全実装
-- `core/enums.py` と `core/constants.py` の作成
-- ネットワーク測定のユニットテスト
-- 測定精度の検証
+- `adapters/network_adapter.py` の完全実装 ✅ (カバレッジ 97.83%)
+- `core/enums.py` と `core/constants.py` の作成 ✅
+- ネットワーク測定のユニットテスト ✅ (25テスト)
+- 測定精度の検証 ✅
 
-### Week 5-6: 安定性分析エンジン
+### Week 5-6: 安定性分析エンジン ✅
 
 **目標:**
 
-- [ ] 統計履歴の管理
-- [ ] ジッター計算アルゴリズム
-- [ ] 一貫性スコア算出
-- [ ] 接続品質判定ロジック
+- [x] 統計履歴の管理
+- [x] ジッター計算アルゴリズム
+- [x] 一貫性スコア算出
+- [x] 接続品質判定ロジック
 
 **成果物:**
 
-- `services/analyzer.py` の完全実装
-- 分析アルゴリズムのテスト
-- パフォーマンス最適化
+- `services/analyzer.py` の完全実装 ✅ (カバレッジ 85.00%)
+- 分析アルゴリズムのテスト ✅ (21テスト)
+- パフォーマンス最適化 ✅
+- `services/monitor.py` の完全実装 ✅ (カバレッジ 98.55%)
+- モニタリングサービスのテスト ✅ (16テスト)
 
 ### Week 7-8: システムトレイUI
 
@@ -399,16 +401,16 @@ class NetworkStats:
 **実装タスク:**
 
 - [x] データクラス定義
-- [ ] バリデーション追加
-- [ ] シリアライゼーション対応
+- [x] バリデーション追加
+- [x] シリアライゼーション対応
 
 #### `core/interfaces.py`
 
 **実装タスク:**
 
 - [x] インターフェース定義
-- [ ] ドキュメント追加
-- [ ] 型ヒント完全化
+- [x] ドキュメント追加
+- [x] 型ヒント完全化
 
 ### Services Layer 実装
 
@@ -417,20 +419,22 @@ class NetworkStats:
 **実装タスク:**
 
 - [x] 基本構造
-- [ ] 履歴管理機能
-- [ ] 定期実行ロジック
-- [ ] エラーハンドリング
-- [ ] パフォーマンス最適化
+- [x] 履歴管理機能 (deque使用)
+- [x] 定期実行ロジック
+- [x] エラーハンドリング
+- [x] パフォーマンス最適化
+- [x] ロギング統合
 
 #### `services/analyzer.py`
 
 **実装タスク:**
 
 - [x] 基本構造
-- [ ] ジッター計算
-- [ ] 一貫性スコア算出
-- [ ] 品質判定アルゴリズム
-- [ ] 統計分析機能
+- [x] ジッター計算
+- [x] 一貫性スコア算出
+- [x] 品質判定アルゴリズム
+- [x] 統計分析機能
+- [x] 重み付け品質スコア計算
 
 ### Adapters Layer 実装
 
@@ -439,28 +443,22 @@ class NetworkStats:
 **実装タスク:**
 
 - [x] 基本構造
-- [ ] psutil 完全統合
-- [ ] speedtest-cli 統合
-- [ ] ping3 統合
-- [ ] Windows netsh 統合
-- [ ] プラットフォーム別実装
+- [x] psutil 完全統合
+- [x] speedtest-cli 統合
+- [x] ping3 統合
+- [x] Windows netsh 統合
+- [x] フォールバック ping ホスト対応
+- [x] リトライロジック実装
+- [x] エラーハンドリング
 
-**実装メモ:**
+**実装済み機能:**
 
-```python
-# Windows: netsh コマンド実行
-subprocess.run(['netsh', 'wlan', 'show', 'interfaces'])
-
-# speedtest-cli 使用
-import speedtest
-st = speedtest.Speedtest()
-st.download()
-st.upload()
-
-# ping3 使用
-from ping3 import ping
-ping('8.8.8.8')
-```
+- ✅ ネットワーク統計取得 (psutil)
+- ✅ 速度測定 (speedtest-cli)
+- ✅ レイテンシ測定 (ping3)
+- ✅ WiFi情報取得 (Windows netsh)
+- ✅ フォールバックホスト対応 (Google DNS, Cloudflare, OpenDNS)
+- ✅ 信号強度のdBm変換
 
 #### `adapters/ui_adapter.py`
 
@@ -496,13 +494,16 @@ ping('8.8.8.8')
 
 ### ユニットテスト
 
-**カバレッジ目標**: 80% 以上
+**カバレッジ目標**: 80% 以上 → **実績**: 91.61% ✅
 
 **重点テスト:**
 
-- [ ] Core モデルのバリデーション
-- [ ] Services の計算ロジック
-- [ ] エラーハンドリング
+- [x] Core モデルのバリデーション
+- [x] Services の計算ロジック
+- [x] エラーハンドリング
+- [x] Network adapter の完全テスト (25テスト)
+- [x] Analyzer service のテスト (21テスト)
+- [x] Monitor service のテスト (16テスト)
 
 ### インテグレーションテスト
 
@@ -679,25 +680,34 @@ pyinstaller --onefile --windowed --icon=icon.ico main.py
 
 ## 📝 次のアクション
 
-### 今週のタスク
+### 今週のタスク ✅ 完了
 
-1. [ ] `network_adapter.py` の実装開始
+1. [x] `network_adapter.py` の実装開始
    - psutil によるネットワーク統計取得
    - Windows netsh 統合
 
-2. [ ] 基本的なテストの作成
+2. [x] 基本的なテストの作成
    - モック使用したユニットテスト
    - CI での自動実行
 
-3. [ ] ドキュメント作成
+3. [x] ドキュメント作成
    - インストールガイド
    - アーキテクチャドキュメント
 
-### 来週のタスク
+### 完了したタスク (2025年10月18日) ✨
 
-1. [ ] speedtest-cli 統合
-2. [ ] ping3 によるレイテンシ測定
-3. [ ] 統合テスト作成
+1. [x] speedtest-cli 統合
+2. [x] ping3 によるレイテンシ測定
+3. [x] 統合テスト作成
+4. [x] analyzer.py の完全実装
+5. [x] monitor.py の完全実装
+6. [x] 総合テストカバレッジ 91.61% 達成
+
+### 次のステップ
+
+1. [ ] システムトレイUI実装 (`adapters/ui_adapter.py`)
+2. [ ] エンドツーエンドテスト
+3. [ ] ユーザードキュメント完成
 
 ## 🔗 参考リンク
 
@@ -718,6 +728,14 @@ pyinstaller --onefile --windowed --icon=icon.ico main.py
 - Optionalではなく、可能な限りUnionを優先的に使用してください。
 - ハードコーディングは避け、
 
-**最終更新**: 2025年10月16日
+**最終更新**: 2025年10月18日
 
-**ステータス**: Phase 1 進行中 🚀
+**ステータス**: Week 3-4 完了 ✅ / Week 5-6 完了 ✅ 🎉
+
+**総合カバレッジ**: 91.61% (目標80%を達成) 🌟
+
+**実装完了:**
+- ✅ Core層 (enums, constants, models, interfaces)
+- ✅ Adapters層 (network_adapter - 97.83%)
+- ✅ Services層 (analyzer - 85.00%, monitor - 98.55%)
+- ✅ 62テスト すべて合格

@@ -10,13 +10,18 @@ from datetime import datetime
 from typing import Union
 
 import psutil
+import speedtest
 from ping3 import ping
 
 from project.core.constants import (
     DEFAULT_PING_COUNT,
+    DEFAULT_PING_HOST,
+    FALLBACK_PING_HOSTS,
+    MAX_SPEEDTEST_RETRY,
     NETWORK_TIMEOUT,
     PING_TIMEOUT,
 )
+from project.core.enums import MeasurementStatus
 from project.core.interfaces import INetworkProvider
 from project.core.models import NetworkStats
 
@@ -33,7 +38,8 @@ class PsutilNetworkProvider(INetworkProvider):
         """Initialize the network provider."""
         self._last_counters = None
         self._last_time = None
-        self._ping_host = "8.8.8.8"  # Google DNS
+        self._ping_host = DEFAULT_PING_HOST
+        self._speedtest_client: Union[speedtest.Speedtest, None] = None
 
     def get_current_stats(self) -> NetworkStats:
         """
@@ -183,4 +189,66 @@ class PsutilNetworkProvider(INetworkProvider):
             Approximate signal strength in dBm.
         """
         return -100 + (percentage * 0.5)
+
+    def measure_speed_with_speedtest(self) -> tuple[float, float, MeasurementStatus]:
+        """
+        Measure download and upload speed using speedtest-cli.
+
+        This method performs an actual internet speed test, which takes
+        10-30 seconds to complete. Use sparingly to avoid excessive
+        network usage.
+
+        Returns:
+            Tuple of (download_mbps, upload_mbps, status).
+        """
+        for attempt in range(MAX_SPEEDTEST_RETRY):
+            try:
+                if self._speedtest_client is None:
+                    self._speedtest_client = speedtest.Speedtest()
+
+                self._speedtest_client.get_best_server()
+
+                download_bps = self._speedtest_client.download(
+                    threads=None
+                )
+                upload_bps = self._speedtest_client.upload(threads=None)
+
+                download_mbps = download_bps / 1_000_000
+                upload_mbps = upload_bps / 1_000_000
+
+                return (
+                    round(download_mbps, 2),
+                    round(upload_mbps, 2),
+                    MeasurementStatus.SUCCESS,
+                )
+
+            except speedtest.ConfigRetrievalError:
+                if attempt < MAX_SPEEDTEST_RETRY - 1:
+                    continue
+                return 0.0, 0.0, MeasurementStatus.FAILED
+
+            except Exception:
+                if attempt < MAX_SPEEDTEST_RETRY - 1:
+                    continue
+                return 0.0, 0.0, MeasurementStatus.FAILED
+
+        return 0.0, 0.0, MeasurementStatus.TIMEOUT
+
+    def measure_latency_with_fallback(self) -> tuple[float, float]:
+        """
+        Measure latency with fallback hosts.
+
+        Tries multiple ping hosts if the primary host fails.
+
+        Returns:
+            Tuple of (latency_ms, packet_loss_percentage).
+        """
+        for host in FALLBACK_PING_HOSTS:
+            self._ping_host = host
+            latency, packet_loss = self._measure_latency_and_loss()
+
+            if packet_loss < 100.0:
+                return latency, packet_loss
+
+        return 0.0, 100.0
 

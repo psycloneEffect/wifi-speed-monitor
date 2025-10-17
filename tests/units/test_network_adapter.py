@@ -269,3 +269,98 @@ class TestPsutilNetworkProvider:
         assert stats.ssid == "MyWiFi"
         assert stats.signal_strength == -55.0
         assert isinstance(stats.timestamp, datetime)
+
+    @patch("project.adapters.network_adapter.speedtest.Speedtest")
+    def test_measure_speed_with_speedtest_success(
+        self, mock_speedtest_class: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test successful speed test measurement."""
+        from project.core.enums import MeasurementStatus
+
+        mock_st = Mock()
+        mock_st.download.return_value = 100_000_000  # 100 Mbps in bps
+        mock_st.upload.return_value = 50_000_000  # 50 Mbps in bps
+        mock_speedtest_class.return_value = mock_st
+
+        download, upload, status = provider.measure_speed_with_speedtest()
+
+        assert download == 100.0
+        assert upload == 50.0
+        assert status == MeasurementStatus.SUCCESS
+        mock_st.get_best_server.assert_called_once()
+        mock_st.download.assert_called_once()
+        mock_st.upload.assert_called_once()
+
+    @patch("project.adapters.network_adapter.speedtest.Speedtest")
+    def test_measure_speed_with_speedtest_config_error(
+        self, mock_speedtest_class: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test speed test with configuration retrieval error."""
+        from project.core.enums import MeasurementStatus
+        import speedtest
+
+        mock_st = Mock()
+        mock_st.get_best_server.side_effect = speedtest.ConfigRetrievalError
+        mock_speedtest_class.return_value = mock_st
+
+        download, upload, status = provider.measure_speed_with_speedtest()
+
+        assert download == 0.0
+        assert upload == 0.0
+        assert status == MeasurementStatus.FAILED
+
+    @patch("project.adapters.network_adapter.speedtest.Speedtest")
+    def test_measure_speed_with_speedtest_general_error(
+        self, mock_speedtest_class: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test speed test with general exception."""
+        from project.core.enums import MeasurementStatus
+
+        mock_st = Mock()
+        mock_st.get_best_server.side_effect = Exception("Network error")
+        mock_speedtest_class.return_value = mock_st
+
+        download, upload, status = provider.measure_speed_with_speedtest()
+
+        assert download == 0.0
+        assert upload == 0.0
+        assert status == MeasurementStatus.FAILED
+
+    @patch.object(PsutilNetworkProvider, "_measure_latency_and_loss")
+    def test_measure_latency_with_fallback_first_host_success(
+        self, mock_measure: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test fallback latency measurement with first host success."""
+        mock_measure.return_value = (25.5, 0.5)
+
+        latency, packet_loss = provider.measure_latency_with_fallback()
+
+        assert latency == 25.5
+        assert packet_loss == 0.5
+        assert mock_measure.call_count == 1
+
+    @patch.object(PsutilNetworkProvider, "_measure_latency_and_loss")
+    def test_measure_latency_with_fallback_second_host_success(
+        self, mock_measure: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test fallback latency measurement with second host success."""
+        mock_measure.side_effect = [(0.0, 100.0), (30.0, 1.0), (20.0, 0.0)]
+
+        latency, packet_loss = provider.measure_latency_with_fallback()
+
+        assert latency == 30.0
+        assert packet_loss == 1.0
+        assert mock_measure.call_count == 2
+
+    @patch.object(PsutilNetworkProvider, "_measure_latency_and_loss")
+    def test_measure_latency_with_fallback_all_fail(
+        self, mock_measure: Mock, provider: PsutilNetworkProvider
+    ) -> None:
+        """Test fallback latency measurement with all hosts failing."""
+        mock_measure.return_value = (0.0, 100.0)
+
+        latency, packet_loss = provider.measure_latency_with_fallback()
+
+        assert latency == 0.0
+        assert packet_loss == 100.0
+        assert mock_measure.call_count == 3
