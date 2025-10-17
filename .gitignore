@@ -94,6 +94,12 @@ coverage.xml
 .tox/
 .nox/
 
+# Timestamped coverage reports (keep structure, ignore contents)
+tests/coverage/*/
+!tests/coverage/README.md
+!tests/coverage/.gitignore
+tests/coverage/latest
+
 # pytest
 .cache/
 nosetests.xml

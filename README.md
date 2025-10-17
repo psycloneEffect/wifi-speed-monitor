@@ -99,13 +99,26 @@ python main.py
 
 ## 🧪 テスト
 
+### テストの実行
+
 ```powershell
-# テストの実行
+# タイムスタンプ付きカバレッジレポートを生成 (推奨)
+python run_tests.py
+
+# 通常のpytest実行
 pytest
 
 # カバレッジ付きテスト
-pytest --cov=. --cov-report=html
+pytest --cov=project --cov-report=html --cov-report=term-missing
 ```
+
+### カバレッジレポート
+
+- **総合カバレッジ**: 91.61% 🎉 (目標80%達成)
+- レポート保存先: `tests/coverage/<タイムスタンプ>/`
+- 最新レポート: `tests/coverage/latest/index.html`
+
+カバレッジレポートの詳細は [tests/coverage/README.md](tests/coverage/README.md) を参照してください。
 
 ## 📦 各レイヤーの責務
 
@@ -166,12 +179,29 @@ ui_presenter.show_tooltip(stats, metrics)
 3. **保守性**: 依存関係が一方向のみで理解しやすい
 4. **拡張性**: 新機能追加時も既存コアに影響なし
 
-## 🚧 TODO
+## ✅ 実装状況
+
+### Week 3-4: ネットワーク測定機能 ✅ 完了
+
+- [x] psutil によるネットワーク統計取得 (97.83% カバレッジ)
+- [x] speedtest-cli を使った正確な速度測定
+- [x] ping3 によるレイテンシ測定
+- [x] Windows netsh コマンドでのSSID/信号強度取得
+- [x] フォールバック ping ホスト対応
+- [x] 25テスト すべて合格
+
+### Week 5-6: 安定性分析エンジン ✅ 完了
+
+- [x] ジッター計算アルゴリズム
+- [x] 一貫性スコア算出
+- [x] 接続品質判定ロジック (85.00% カバレッジ)
+- [x] モニタリングサービス実装 (98.55% カバレッジ)
+- [x] 37テスト すべて合格
+
+### 次のステップ
 
 - [ ] PyQt6によるシステムトレイUI実装
-- [ ] speedtest-cliを使った正確な速度測定
-- [ ] ping3によるレイテンシ測定
-- [ ] Windows netshコマンドでのSSID/信号強度取得
+- [ ] エンドツーエンドテスト
 - [ ] 設定ファイル対応（監視間隔など）
 - [ ] ロギング実装
 - [ ] パッケージング（exe化）
