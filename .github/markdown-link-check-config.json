@@ -1,0 +1,12 @@
+{
+  "alive-days": 30,
+  "ignorePatterns": [
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^https://codecov.io"
+    }
+  ],
+  "httpStatusCode": 200
+}
