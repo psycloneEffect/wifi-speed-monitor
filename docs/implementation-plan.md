@@ -1,8 +1,8 @@
-# Speed Finder 実装計画
+# WiFi Speed Monitor 実装計画
 
 ## 📋 プロジェクト概要
 
-**プロジェクト名**: Speed Finder
+**プロジェクト名**: WiFi Speed Monitor
 
 **目的**: WiFiネットワークの速度と安定性をリアルタイムでモニタリングし、システムトレイから情報を表示する常駐型デスクトップアプリケーション
 

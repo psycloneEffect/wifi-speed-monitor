@@ -1,4 +1,4 @@
-# Speed Finder - Justfile
+# WiFi Speed Monitor - Justfile
 # Modern alternative to Makefile
 # Install just: https://github.com/casey/just
 
@@ -169,7 +169,7 @@ ci-lint:
 
 # プロジェクト情報を表示
 info:
-    @echo "📦 Speed Finder"
+    @echo "📦 WiFi Speed Monitor"
     @echo "Version: $(just version)"
     @echo "Python: $(python --version)"
     @echo "Location: $(pwd)"

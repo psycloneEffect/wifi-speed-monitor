@@ -68,7 +68,7 @@ git add .
 git commit -m "Initial commit with CI/CD setup"
 
 # GitHubにリモートリポジトリを作成して設定
-git remote add origin https://github.com/YOUR_USERNAME/speed-finder.git
+git remote add origin https://github.com/psycloneEffect/wifi-speed-monitor.git
 git branch -M main
 git push -u origin main
 ```
@@ -119,13 +119,13 @@ Branch name pattern: main
 `YOUR_USERNAME` を実際のGitHubユーザー名に置き換えてください:
 
 ```markdown
-[![CI/CD Pipeline](https://github.com/YOUR_USERNAME/speed-finder/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/YOUR_USERNAME/speed-finder/actions)
+[![CI/CD Pipeline](https://github.com/psycloneEffect/wifi-speed-monitor/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/psycloneEffect/wifi-speed-monitor/actions)
 ```
 
 ↓
 
 ```markdown
-[![CI/CD Pipeline](https://github.com/actual-username/speed-finder/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/actual-username/speed-finder/actions)
+[![CI/CD Pipeline](https://github.com/psycloneEffect/wifi-speed-monitor/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/psycloneEffect/wifi-speed-monitor/actions)
 ```
 
 ---

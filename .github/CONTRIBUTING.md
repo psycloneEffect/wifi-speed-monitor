@@ -58,8 +58,8 @@ Speed Finderへの貢献に興味を持っていただき、ありがとうご�
 
 ```bash
 # 1. リポジトリをフォーク & クローン
-git clone https://github.com/YOUR_USERNAME/speed-finder.git
-cd speed-finder
+git clone https://github.com/YOUR_USERNAME/wifi-speed-monitor.git
+cd wifi-speed-monitor
 
 # 2. 仮想環境を作成
 python -m venv venv

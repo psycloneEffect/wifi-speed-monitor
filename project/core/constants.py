@@ -102,7 +102,7 @@ MAX_SPEEDTEST_RETRY = 3  # maximum retry attempts for speed test
 # ==========================================
 # Application Info
 # ==========================================
-APP_NAME = "Speed Finder"
+APP_NAME = "WiFi Speed Monitor"
 APP_VERSION = "0.1.0"
 MIN_PYTHON_VERSION = (3, 11)
 

@@ -1,7 +1,7 @@
 # GitHubリモートリポジトリ作成ガイド
 
 ## 🎯 目的
-ローカルの `speed-finder` プロジェクトをGitHub（`psycloneEffect`アカウント）にプッシュする
+ローカルの `wifi-speed-monitor` プロジェクトをGitHub（`psycloneEffect`アカウント）にプッシュする
 
 ---
 
@@ -22,7 +22,7 @@
 2. 右上の「+」ボタン → 「New repository」
 3. 以下を入力:
    - **Owner**: `psycloneEffect`
-   - **Repository name**: `speed-finder`
+   - **Repository name**: `wifi-speed-monitor`
    - **Description**: `WiFiネットワークの速度と安定性をリアルタイムでモニタリングする常駐型アプリケーション`
    - **Visibility**: Public または Private（お好みで）
    - **Initialize**: すべてチェックを外す（ローカルに既存ファイルがあるため）
@@ -46,7 +46,7 @@ git config --global user.email "your-email@example.com"
 
 ```powershell
 # プロジェクトディレクトリに移動（既に居る場合はスキップ）
-cd C:\Users\onoma\OneDrive\07_CodeBase\71_Python\speed-finder
+cd C:\Users\onoma\OneDrive\07_CodeBase\71_Python\wifi-speed-monitor
 
 # Gitリポジトリ初期化（まだの場合）
 git init

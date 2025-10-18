@@ -127,7 +127,7 @@ class TrayUIAdapter(IUIPresenter):
         Returns:
             フォーマットされたツールチップテキスト
         """
-        return f"""Speed Finder
+        return f"""WiFi Speed Monitor
 ━━━━━━━━━━━━━━━━
 📡 {stats.ssid or 'Unknown Network'}
 ⬇️ {stats.download_speed:.1f} Mbps
@@ -141,7 +141,7 @@ Jitter: {metrics.jitter:.1f} ms""".strip()
     def _show_details(self) -> None:
         """詳細情報ウィンドウを表示します（将来実装）。"""
         self._tray_icon.showMessage(
-            "Speed Finder",
+            "WiFi Speed Monitor",
             "詳細情報機能は今後実装予定です",
             QSystemTrayIcon.MessageIcon.Information,
             2000,
@@ -150,7 +150,7 @@ Jitter: {metrics.jitter:.1f} ms""".strip()
     def _show_settings(self) -> None:
         """設定ウィンドウを表示します（将来実装）。"""
         self._tray_icon.showMessage(
-            "Speed Finder",
+            "WiFi Speed Monitor",
             "設定機能は今後実装予定です",
             QSystemTrayIcon.MessageIcon.Information,
             2000,

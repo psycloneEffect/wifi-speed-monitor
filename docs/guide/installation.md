@@ -1,6 +1,6 @@
 # インストールガイド
 
-Speed Finder のインストール方法を説明します。
+WiFi Speed Monitor のインストール方法を説明します。
 
 ## 📋 システム要件
 
@@ -24,18 +24,18 @@ Speed Finder のインストール方法を説明します。
 
 ```bash
 # PyPI からインストール（将来）
-pip install speed-finder
+pip install wifi-speed-monitor
 
 # または、開発版をインストール
-pip install git+https://github.com/onoma/speed-finder.git
+pip install git+https://github.com/psycloneEffect/wifi-speed-monitor.git
 ```
 
 ### Method 2: ソースからインストール
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/onoma/speed-finder.git
-cd speed-finder
+git clone https://github.com/psycloneEffect/wifi-speed-monitor.git
+cd wifi-speed-monitor
 
 # 仮想環境を作成
 python -m venv .venv
@@ -57,14 +57,14 @@ python -m project.main
 
 **※ 現在準備中**
 
-1. [Releases](https://github.com/onoma/speed-finder/releases) から最新版をダウンロード
-2. `SpeedFinder-Setup.exe` を実行
+1. [Releases](https://github.com/psycloneEffect/wifi-speed-monitor/releases) から最新版をダウンロード
+2. `WiFiSpeedMonitor-Setup.exe` を実行
 3. インストールウィザードに従う
 4. スタートメニューから起動
 
 ## 🔧 依存パッケージ
 
-Speed Finder は以下のパッケージに依存しています：
+WiFi Speed Monitor は以下のパッケージに依存しています：
 
 ### 必須パッケージ
 
@@ -115,10 +115,10 @@ python --version
 python3 --version
 
 # Speed Finder のバージョン確認
-speed-finder --version
+wifi-speed-monitor --version
 
 # 動作確認
-speed-finder --help
+wifi-speed-monitor --help
 ```
 
 ## 🔄 アップデート
@@ -126,13 +126,13 @@ speed-finder --help
 ### pip でインストールした場合
 
 ```bash
-pip install --upgrade speed-finder
+pip install --upgrade wifi-speed-monitor
 ```
 
 ### ソースからインストールした場合
 
 ```bash
-cd speed-finder
+cd wifi-speed-monitor
 git pull origin main
 pip install -r requirements.txt
 ```
@@ -142,21 +142,21 @@ pip install -r requirements.txt
 ### pip でインストールした場合
 
 ```bash
-pip uninstall speed-finder
+pip uninstall wifi-speed-monitor
 ```
 
 ### ソースからインストールした場合
 
 ```bash
 # プロジェクトフォルダを削除
-rm -rf speed-finder
+rm -rf wifi-speed-monitor
 ```
 
 ### 実行ファイルでインストールした場合
 
 **Windows:**
 
-1. 設定 → アプリ → Speed Finder
+1. 設定 → アプリ → WiFi Speed Monitor
 2. アンインストールをクリック
 
 ## 🐛 トラブルシューティング
@@ -198,7 +198,7 @@ python -m ensurepip --upgrade
 
 ```bash
 # --user オプションを使用
-pip install --user speed-finder
+pip install --user wifi-speed-monitor
 
 # または仮想環境を使用（推奨）
 python -m venv .venv
@@ -230,8 +230,8 @@ pip install PyQt6>=6.6.0
 問題が解決しない場合：
 
 1. [FAQ](../README.md#faq)を確認
-2. [既存のIssue](https://github.com/onoma/speed-finder/issues)を検索
-3. 新しい[Issue](https://github.com/onoma/speed-finder/issues/new)を作成
+2. [既存のIssue](https://github.com/psycloneEffect/wifi-speed-monitor/issues)を検索
+3. 新しい[Issue](https://github.com/psycloneEffect/wifi-speed-monitor/issues/new)を作成
 
 ## 🎉 次のステップ
 

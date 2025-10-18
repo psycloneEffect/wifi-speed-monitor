@@ -1,12 +1,12 @@
-# Speed Finder ドキュメント
+# WiFi Speed Monitor ドキュメント
 
-Welcome to Speed Finder documentation! 🍛
+Welcome to WiFi Speed Monitor documentation! 🍛
 
 ## 📚 ドキュメント構成
 
 ### ユーザーガイド
 
-- [インストールガイド](guide/installation.md) - Speed Finder のインストール方法
+- [インストールガイド](guide/installation.md) - WiFi Speed Monitor のインストール方法
 - [使い方](guide/usage.md) - 基本的な使い方と機能説明
 - [設定](guide/configuration.md) - 詳細な設定方法
 
@@ -27,17 +27,17 @@ Welcome to Speed Finder documentation! 🍛
 
 ```bash
 # インストール
-pip install speed-finder
+pip install wifi-speed-monitor
 
 # 実行
-speed-finder
+wifi-speed-monitor
 ```
 
 詳細は[インストールガイド](guide/installation.md)を参照してください。
 
 ## 🏗️ プロジェクト概要
 
-Speed Finder は、WiFiネットワークの速度と安定性をリアルタイムでモニタリングする常駐型デスクトップアプリケーションです。
+WiFi Speed Monitor は、WiFiネットワークの速度と安定性をリアルタイムでモニタリングする常駐型デスクトップアプリケーションです。
 
 ### 主な機能
 
@@ -50,7 +50,7 @@ Speed Finder は、WiFiネットワークの速度と安定性をリアルタイ
 
 ### アーキテクチャ
 
-Speed Finder は**オニオンアーキテクチャ**を採用しています。
+WiFi Speed Monitor は**オニオンアーキテクチャ**を採用しています。
 
 ```
 Infrastructure → Application → Core
@@ -85,8 +85,8 @@ MIT License - 詳細は[LICENSE](../LICENSE)を参照してください。
 
 ## 🔗 リンク
 
-- [GitHub Repository](https://github.com/onoma/speed-finder)
-- [Issue Tracker](https://github.com/onoma/speed-finder/issues)
+- [GitHub Repository](https://github.com/psycloneEffect/wifi-speed-monitor)
+- [Issue Tracker](https://github.com/psycloneEffect/wifi-speed-monitor/issues)
 - [Changelog](../CHANGELOG.md)
 
 ---

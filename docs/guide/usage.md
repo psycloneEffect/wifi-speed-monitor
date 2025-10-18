@@ -1,6 +1,6 @@
 # 使い方ガイド
 
-Speed Finder の基本的な使い方を説明します。
+WiFi Speed Monitor の基本的な使い方を説明します。
 
 ## 🚀 起動方法
 
@@ -8,7 +8,7 @@ Speed Finder の基本的な使い方を説明します。
 
 ```bash
 # インストール済みの場合
-speed-finder
+wifi-speed-monitor
 
 # ソースから実行する場合
 python -m project.main
@@ -16,8 +16,8 @@ python -m project.main
 
 ### Windows での起動
 
-- スタートメニューから "Speed Finder" を検索
-- または、インストールフォルダから `SpeedFinder.exe` を実行
+- スタートメニューから "WiFi Speed Monitor" を検索
+- または、インストールフォルダから `WiFiSpeedMonitor.exe` を実行
 
 ### 自動起動の設定
 
@@ -29,7 +29,7 @@ python -m project.main
 または手動で：
 
 1. `Win + R` で "shell:startup" を実行
-2. Speed Finder のショートカットを配置
+2. WiFi Speed Monitor のショートカットを配置
 
 ## 📊 基本機能
 
@@ -195,7 +195,7 @@ python -m project.main
 #### 接続品質低下
 
 ```
-⚠️ Speed Finder
+⚠️ WiFi Speed Monitor
 接続品質が低下しました
 品質: Good → Poor
 ```
@@ -203,7 +203,7 @@ python -m project.main
 #### 速度低下
 
 ```
-⚠️ Speed Finder
+⚠️ WiFi Speed Monitor
 ダウンロード速度が低下
 95 Mbps → 15 Mbps
 ```
@@ -211,7 +211,7 @@ python -m project.main
 #### レイテンシ上昇
 
 ```
-⚠️ Speed Finder
+⚠️ WiFi Speed Monitor
 レイテンシが上昇しました
 25 ms → 150 ms
 ```
@@ -252,7 +252,7 @@ Linux: ~/.local/share/SpeedFinder/logs/
 
 1. 設定 → 個人用設定 → タスクバー
 2. "その他のシステムトレイアイコン"
-3. "Speed Finder" を有効化
+3. "WiFi Speed Monitor" を有効化
 
 #### 測定が遅い/失敗する
 

@@ -1,4 +1,4 @@
-# Speed Finder MCP Configuration Guide
+# WiFi Speed Monitor MCP Configuration Guide
 
 ## 🎯 MCP (Model Context Protocol) とは
 
@@ -19,7 +19,7 @@ MCPは、AIアシスタント（GitHub Copilot等）がプロジェクトのコ�
   "args": [
     "-y",
     "@modelcontextprotocol/server-filesystem",
-    "c:\\Users\\onoma\\OneDrive\\07_CodeBase\\71_Python\\speed-finder"
+    "c:\\Users\\onoma\\OneDrive\\07_CodeBase\\71_Python\\wifi-speed-monitor"
   ]
 }
 ```
@@ -82,7 +82,7 @@ GITHUB_TOKEN=your_token_here
 
 ```powershell
 # Filesystem serverのテスト
-npx -y @modelcontextprotocol/server-filesystem "C:\Users\onoma\OneDrive\07_CodeBase\71_Python\speed-finder"
+npx -y @modelcontextprotocol/server-filesystem "C:\Users\onoma\OneDrive\07_CodeBase\71_Python\wifi-speed-monitor"
 
 # Memory serverのテスト
 npx -y @modelcontextprotocol/server-memory
@@ -154,7 +154,7 @@ npx -y @modelcontextprotocol/server-filesystem --help
 - または、フォワードスラッシュ使用: `/`
 
 ```json
-"c:/Users/onoma/OneDrive/07_CodeBase/71_Python/speed-finder"
+"c:/Users/onoma/OneDrive/07_CodeBase/71_Python/wifi-speed-monitor"
 ```
 
 ## 📚 参考資料

@@ -1,5 +1,5 @@
 """
-Speed Finder - WiFi速度モニタリングアプリ
+WiFi Speed Monitor - WiFi速度モニタリングアプリ
 エントリーポイント
 """
 import sys
@@ -61,7 +61,7 @@ def main() -> int:
     # 初回更新
     update_ui()
 
-    print("Speed Finder started...")
+    print("WiFi Speed Monitor started...")
     print("System tray icon should be visible.")
     print("Right-click the icon for options.")
 
