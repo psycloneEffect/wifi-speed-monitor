@@ -101,16 +101,16 @@ class StabilityAnalyzerService(IStabilityAnalyzer):
         speed: float,
     ) -> float:
         """
-        Calculate weighted quality score (0-100).
+        重み付けされた品質スコア（0-100）を計算します。
 
         Args:
-            latency: Average latency in ms.
-            jitter: Jitter in ms.
-            packet_loss: Packet loss percentage.
-            speed: Download speed in Mbps.
+            latency: 平均レイテンシ（ms）
+            jitter: ジッター（ms）
+            packet_loss: パケットロス率（%）
+            speed: ダウンロード速度（Mbps）
 
         Returns:
-            Quality score from 0 to 100.
+            0から100までの品質スコア
         """
         latency_score = self._normalize_latency_score(latency)
         jitter_score = self._normalize_jitter_score(jitter)
@@ -127,7 +127,7 @@ class StabilityAnalyzerService(IStabilityAnalyzer):
         return round(total_score, 2)
 
     def _normalize_latency_score(self, latency: float) -> float:
-        """Normalize latency to 0-100 score."""
+        """レイテンシを0-100のスコアに正規化します。"""
         if latency <= LATENCY_EXCELLENT:
             return 100.0
         if latency >= LATENCY_FAIR:
@@ -136,7 +136,7 @@ class StabilityAnalyzerService(IStabilityAnalyzer):
         return ratio * 100.0
 
     def _normalize_jitter_score(self, jitter: float) -> float:
-        """Normalize jitter to 0-100 score."""
+        """ジッターを0-100のスコアに正規化します。"""
         if jitter <= JITTER_EXCELLENT:
             return 100.0
         if jitter >= JITTER_FAIR:
@@ -145,7 +145,7 @@ class StabilityAnalyzerService(IStabilityAnalyzer):
         return ratio * 100.0
 
     def _normalize_packet_loss_score(self, packet_loss: float) -> float:
-        """Normalize packet loss to 0-100 score."""
+        """パケットロス率を0-100のスコアに正規化します。"""
         if packet_loss <= PACKET_LOSS_GOOD:
             return 100.0
         if packet_loss >= PACKET_LOSS_FAIR:
@@ -156,7 +156,7 @@ class StabilityAnalyzerService(IStabilityAnalyzer):
         return ratio * 100.0
 
     def _normalize_speed_score(self, speed: float) -> float:
-        """Normalize speed to 0-100 score."""
+        """速度を0-100のスコアに正規化します。"""
         if speed >= 100.0:
             return 100.0
         if speed <= 10.0:

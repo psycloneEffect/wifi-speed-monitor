@@ -1,8 +1,8 @@
 """
-Core enums for network monitoring.
+ネットワークモニタリング用の列挙型定義.
 
-This module defines enumeration types used throughout the application
-for representing network connection quality, network types, and measurement status.
+このモジュールでは、アプリケーション全体で使用される列挙型を定義します。
+ネットワーク接続品質、ネットワークタイプ、測定ステータスなどを表現します。
 """
 
 from enum import Enum, auto
@@ -10,9 +10,9 @@ from enum import Enum, auto
 
 class ConnectionQuality(Enum):
     """
-    Network connection quality rating.
+    ネットワーク接続品質の評価.
 
-    Based on latency, jitter, packet loss, and speed measurements.
+    レイテンシ、ジッター、パケットロス、速度測定に基づいて判定されます。
     """
 
     EXCELLENT = auto()
@@ -22,15 +22,15 @@ class ConnectionQuality(Enum):
     UNKNOWN = auto()
 
     def __str__(self) -> str:
-        """Return human-readable string representation."""
+        """人間が読みやすい文字列表現を返します."""
         return self.name.capitalize()
 
 
 class NetworkType(Enum):
     """
-    Type of network connection.
+    ネットワーク接続のタイプ.
 
-    Used to identify the physical/logical connection type.
+    物理的/論理的な接続タイプを識別するために使用されます。
     """
 
     WIFI = auto()
@@ -39,20 +39,20 @@ class NetworkType(Enum):
     UNKNOWN = auto()
 
     def __str__(self) -> str:
-        """Return human-readable string representation."""
+        """人間が読みやすい文字列表現を返します."""
         return self.name.capitalize()
 
 
 class SignalStrength(Enum):
     """
-    WiFi signal strength rating.
+    WiFi信号強度の評価.
 
-    Based on RSSI (Received Signal Strength Indicator) in dBm.
-    - EXCELLENT: -50 dBm or better
-    - GOOD: -60 dBm or better
-    - FAIR: -70 dBm or better
-    - POOR: -80 dBm or better
-    - VERY_POOR: worse than -80 dBm
+    RSSI (受信信号強度インジケーター) のdBm値に基づきます。
+    - EXCELLENT: -50 dBm以上
+    - GOOD: -60 dBm以上
+    - FAIR: -70 dBm以上
+    - POOR: -80 dBm以上
+    - VERY_POOR: -80 dBm未満
     """
 
     EXCELLENT = auto()
@@ -63,15 +63,15 @@ class SignalStrength(Enum):
     UNKNOWN = auto()
 
     def __str__(self) -> str:
-        """Return human-readable string representation."""
+        """人間が読みやすい文字列表現を返します."""
         return self.name.replace("_", " ").capitalize()
 
 
 class MeasurementStatus(Enum):
     """
-    Status of network measurement operation.
+    ネットワーク測定操作のステータス.
 
-    Indicates the current state or result of a measurement attempt.
+    測定試行の現在の状態または結果を示します。
     """
 
     IDLE = auto()
@@ -81,5 +81,5 @@ class MeasurementStatus(Enum):
     TIMEOUT = auto()
 
     def __str__(self) -> str:
-        """Return human-readable string representation."""
+        """人間が読みやすい文字列表現を返します."""
         return self.name.replace("_", " ").capitalize()

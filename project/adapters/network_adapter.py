@@ -1,7 +1,7 @@
 """
-Network adapter implementation.
+ネットワークアダプター実装。
 
-Provides network statistics gathering using psutil, speedtest-cli, and ping3.
+psutil、speedtest-cli、ping3を使用したネットワーク統計情報の収集を提供します。
 """
 
 import subprocess
@@ -28,14 +28,14 @@ from project.core.models import NetworkStats
 
 class PsutilNetworkProvider(INetworkProvider):
     """
-    Network information provider using psutil.
+    psutilを使用したネットワーク情報プロバイダー。
 
-    Gathers network statistics including speed, latency, packet loss,
-    and connection information using multiple tools.
+    速度、レイテンシ、パケットロス、接続情報を含むネットワーク統計を
+    複数のツールを用いて収集します。
     """
 
     def __init__(self) -> None:
-        """Initialize the network provider."""
+        """ネットワークプロバイダーを初期化します。"""
         self._last_counters = None
         self._last_time = None
         self._ping_host = DEFAULT_PING_HOST
@@ -43,10 +43,10 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def get_current_stats(self) -> NetworkStats:
         """
-        Get current network statistics.
+        現在のネットワーク統計情報を取得します。
 
         Returns:
-            NetworkStats with current network measurements.
+            現在のネットワーク測定値を含むNetworkStats
         """
         download_speed, upload_speed = self._get_interface_speed()
         latency, packet_loss = self._measure_latency_and_loss()
@@ -64,20 +64,20 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def get_connection_info(self) -> dict:
         """
-        Get connection information (legacy method).
+        接続情報を取得します（レガシーメソッド）。
 
         Returns:
-            Dict with ssid and signal_strength keys.
+            ssidとsignal_strengthキーを含む辞書
         """
         ssid, signal_strength = self._get_wifi_info()
         return {"ssid": ssid, "signal_strength": signal_strength}
 
     def _get_interface_speed(self) -> tuple[float, float]:
         """
-        Calculate interface speed from byte counters.
+        バイトカウンターからインターフェース速度を計算します。
 
         Returns:
-            Tuple of (download_speed, upload_speed) in Mbps.
+            (download_speed, upload_speed) のタプル（単位: Mbps）
         """
         current_counters = psutil.net_io_counters()
         current_time = datetime.now()
@@ -101,10 +101,10 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def _measure_latency_and_loss(self) -> tuple[float, float]:
         """
-        Measure latency and packet loss using ping.
+        pingを使用してレイテンシとパケットロスを測定します。
 
         Returns:
-            Tuple of (latency_ms, packet_loss_percentage).
+            (latency_ms, packet_loss_percentage) のタプル
         """
         latencies = []
         failed_pings = 0
@@ -129,10 +129,10 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def _get_wifi_info(self) -> tuple[Union[str, None], Union[float, None]]:
         """
-        Get WiFi SSID and signal strength (Windows only).
+        WiFi SSIDと信号強度を取得します（Windows専用）。
 
         Returns:
-            Tuple of (ssid, signal_strength_dbm).
+            (ssid, signal_strength_dbm) のタプル
         """
         try:
             result = subprocess.run(
@@ -153,13 +153,13 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def _parse_netsh_output(self, output: str) -> tuple[Union[str, None], Union[float, None]]:
         """
-        Parse netsh wlan show interfaces output.
+        netsh wlan show interfacesの出力を解析します。
 
         Args:
-            output: Raw netsh command output.
+            output: netshコマンドの生出力
 
         Returns:
-            Tuple of (ssid, signal_strength_dbm).
+            (ssid, signal_strength_dbm) のタプル
         """
         ssid = None
         signal = None
@@ -180,26 +180,26 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def _convert_signal_to_dbm(self, percentage: int) -> float:
         """
-        Convert signal percentage to dBm.
+        信号強度のパーセンテージをdBmに変換します。
 
         Args:
-            percentage: Signal strength as percentage (0-100).
+            percentage: 信号強度のパーセンテージ（0-100）
 
         Returns:
-            Approximate signal strength in dBm.
+            dBm単位の信号強度の概算値
         """
         return -100 + (percentage * 0.5)
 
     def measure_speed_with_speedtest(self) -> tuple[float, float, MeasurementStatus]:
         """
-        Measure download and upload speed using speedtest-cli.
+        speedtest-cliを使用してダウンロードとアップロード速度を測定します。
 
-        This method performs an actual internet speed test, which takes
-        10-30 seconds to complete. Use sparingly to avoid excessive
-        network usage.
+        このメソッドは実際のインターネット速度テストを実行し、
+        完了までに10-30秒かかります。過度なネットワーク使用を避けるため、
+        控えめに使用してください。
 
         Returns:
-            Tuple of (download_mbps, upload_mbps, status).
+            (download_mbps, upload_mbps, status) のタプル
         """
         for attempt in range(MAX_SPEEDTEST_RETRY):
             try:
@@ -236,12 +236,12 @@ class PsutilNetworkProvider(INetworkProvider):
 
     def measure_latency_with_fallback(self) -> tuple[float, float]:
         """
-        Measure latency with fallback hosts.
+        フォールバックホストを使用してレイテンシを測定します。
 
-        Tries multiple ping hosts if the primary host fails.
+        プライマリホストが失敗した場合、複数のpingホストを試行します。
 
         Returns:
-            Tuple of (latency_ms, packet_loss_percentage).
+            (latency_ms, packet_loss_percentage) のタプル
         """
         for host in FALLBACK_PING_HOSTS:
             self._ping_host = host

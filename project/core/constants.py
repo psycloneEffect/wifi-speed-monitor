@@ -1,8 +1,8 @@
 """
-Core constants for network monitoring.
+ネットワークモニタリング用の定数定義。
 
-This module defines threshold values, default settings, and configuration constants
-used throughout the application for network quality assessment.
+本モジュールはアプリケーション全体で使用される閾値、デフォルト設定、
+ネットワーク品質評価用の設定定数を定義します。
 """
 
 # ==========================================

@@ -21,7 +21,7 @@ class INetworkProvider(ABC):
 
 class IStabilityAnalyzer(ABC):
     """安定性分析インターフェース"""
-    
+
     @abstractmethod
     def analyze(self, stats_history: list[NetworkStats]) -> StabilityMetrics:
         """統計履歴から安定性を分析"""
