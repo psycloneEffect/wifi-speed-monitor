@@ -58,7 +58,7 @@ logging = [
     "loguru>=0.7.0",
 ]
 config = [
-    "pyyaml>=6.0.0",
+    "pyyaml>=6.0.3",
     "python-dotenv>=1.0.0",
 ]
 
